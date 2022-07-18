@@ -3,3 +3,4 @@ new log for branch
 this is branching
 this is second commit
 this is after branching 1
+this 2 after branching
