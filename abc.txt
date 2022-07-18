@@ -2,3 +2,4 @@ this is my first file
 new log for branch
 this is branching
 this is second commit
+this is after branching 1
