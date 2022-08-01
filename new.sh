@@ -1,8 +1,6 @@
 pipeline {
     agent any
-        parameters {
-            string(name: 'myParameter', defaultValue: 'myVal', description: 'Enter Parameter value?')
-                    }
+        parameters {string(name: 'myParameter', defaultValue: 'myVal', description: 'Enter Parameter value?') }
         stages {
             stage('Build') {
                             steps {
@@ -10,15 +8,15 @@ pipeline {
                                     echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                                     }
                              }
-             stage('Test') {
+            stage('Test') {
                             steps {
-                                 echo 'Testing..'
+                                    echo 'Testing..'
                                     echo "${params.myParameter} is value retrieved!"
                                     }
-                            }
+                             }
             stage('Deploy') {
                             steps {
                                      echo 'Deploying....'
                                     }
-                            }
-                    }
+                  }
+             }
