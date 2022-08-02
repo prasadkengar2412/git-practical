@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                dir("${env.WORKSPACE}/java-tomcat-sample"){
+                dir("${env.WORKSPACE}/JENKINS_SAMPLE"){
                     sh "pwd"
                     sh 'mvn clean install -f pom.xml'
                 }
@@ -34,7 +34,7 @@ pipeline {
                 environment name: 'SDLC_ENV', value: 'dev'
             }
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat_login_info', path: '', url: 'http://172.31.1.52:8080/')], contextPath: 'dev-java-tomcat-pipeline-sample', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat_deployer', path: '', url: 'http://172.31.89.219:8080/')], contextPath: 'dev-java-tomcat-pipeline-sample', war: '**/*.war'
             }
         }
         stage('DeployToQa') {
@@ -42,7 +42,7 @@ pipeline {
                 environment name: 'SDLC_ENV', value: 'qa'
             }
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat_login_info', path: '', url: 'http://172.31.1.52:8080/')], contextPath: 'qa-java-tomcat-pipeline-sample', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat_deployer', path: '', url: 'http://172.31.89.219:8080/')], contextPath: 'qa-java-tomcat-pipeline-sample', war: '**/*.war'
             }
         }
         stage('DeployToProd') {
@@ -50,13 +50,13 @@ pipeline {
                 environment name: 'SDLC_ENV', value: 'prod'
             }
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'tomcat_login_info', path: '', url: 'http://172.31.23.129:8080/')], contextPath: 'prod-java-tomcat-pipeline-sample', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcat_deployer', path: '', url: 'http://172.31.89.219:808/')], contextPath: 'prod-java-tomcat-pipeline-sample', war: '**/*.war'
             }
         }
     }
     post {
         always {
-            archiveArtifacts artifacts: '**/*.war', fingerprint: true
+            archiveArtifacts artifacts: 'JENKINS_SAMPLE/target/*.war', fingerprint: true
         }
     }
 }
